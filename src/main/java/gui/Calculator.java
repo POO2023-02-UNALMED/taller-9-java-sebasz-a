@@ -128,9 +128,38 @@ public class Calculator extends VBox implements EventHandler<ActionEvent>{
 		Button b = (Button) event.getSource();
 		String value = b.getText();
 		
-		
-		
+		switch (value) {
+			case "+": operator = value; break;
+			case "-": operator = value; break;
+			case "*": operator = value; break;
+			case "/": operator = value; break;
+			case "C": operator = ""; number1 = ""; number2 = ""; break;
+			case "=":
+				double n1 = Double.parseDouble(number1);
+				double n2 = Double.parseDouble(number2);
+				double r = 0;
+				switch(operator) {
+					case "+":
+						r = n1 + n2; break;
+					case "-":
+						r = n1 - n2; break;
+					case "*":
+						r = n1 * n2; break;
+					case "/":
+						r = n1 / n2; break;
+				}
+				operator = ""; number1 = ""; number2 = "";
+				number1 = String.valueOf(r); break;
+			default: if (operator == null || operator.isEmpty()) {
+				number1 += value; break;
+			} else {
+				number2 += value; break;
+			}
+		}
+		if (operator == null) {
+			displayText.setText(number1 + number2);
+		} else {
+			displayText.setText(number1 + operator + number2);
+		}	
 	}
-	
-
 }
